@@ -1,0 +1,18 @@
+{
+  "name": "lenslight_tr",
+  "version": "1.0.0",
+  "description": "im learning nodejs ",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon app.js" 
+  },
+  "author": "Serkan Kaçalın",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
