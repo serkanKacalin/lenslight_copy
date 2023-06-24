@@ -21,10 +21,10 @@ const createPhoto = async (req, res) => {
 const getAllPhotos = async (req, res) => {
     try {
         const photos = await Photo.find({}); // varolan tüm fotoğrafları getirmek için boş obje yerleştirdik.
-        res.status(200).json({
-            succeded: true,
-            photos
-        })
+        res.status(200).render("Photos", { // kıvrık parantezler ile belirtilen kısım configuration objesidir.
+            photos,
+            link: "photos"
+        });
     } catch (error) {
         res.status(500).json({
             succeded: false,
