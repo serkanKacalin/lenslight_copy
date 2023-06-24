@@ -18,6 +18,7 @@ app.set('view engine', 'ejs'); // ejsyi template engine olarak belirledik.
 
 // static files middleware(ara yazılım)
 app.use(express.static('public'));
+app.use(express.json()); // bu satır gönderdiğimiz json formatındaki verileri okumak için 
 
 // routes
 app.use("/", pageRoute); // "/" yani kök adresimize gelen bir isteği pageRoute dosyamıza gönderdik.
