@@ -10,6 +10,13 @@ const getAboutPage = (req, res) => {
     });
 };
 
+const getRegisterPage = (req, res) => {
+    res.render('register', {
+        link: "register",
+    });
+};
 
 
-export { getIndexPage, getAboutPage }; // obje şeklinde export ettik
+
+
+export { getIndexPage, getAboutPage, getRegisterPage}; // obje şeklinde export ettik

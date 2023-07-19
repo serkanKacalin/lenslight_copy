@@ -34,9 +34,26 @@ const getAllPhotos = async (req, res) => {
 }
 // veri tabanında bulunan bir veriyi alacağı için getAllPhotos fonksiyonu yine bir asenkron fonksiyon olacak .
 
-export { createPhoto , getAllPhotos}; 
+
 
 /* thunderclientte simüle ettiğimizde photo adında boş bir objenin döndüğünü gördük bunun sebebi şu : 
 photo adında bir nesne oluşturduğumuzda bunun cevabını beklemeden alttaki cevabı çalıştırıyor o yüzden boş görünüyor */
 
 /* bu yüzden createPhoto metodunu asenkron haline getirip nesne oluşturma kısmında bekletmemiz gerek */
+
+const getAPhoto = async (req, res) => {
+    try {
+        const photo = await Photo.findById({_id : req.params.id}); 
+        res.status(200).render("photo", {
+            photo,
+            link: "photos"
+        });
+    } catch (error) {
+        res.status(500).json({
+            succeded: false,
+            error,
+        });
+    }
+}
+
+export { createPhoto , getAllPhotos, getAPhoto }; 
