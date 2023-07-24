@@ -1,10 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import conn from "./db.js";
+import cookieParser from "cookie-parser";
 import pageRoute from "./routes/pageRoute.js";
 import photoRoute from "./routes/photoRoute.js";
 import userRoute from "./routes/userRoute.js";
-import cookieParser from "cookie-parser";
 import { checkUser } from "./middlewares/authMiddleware.js";
 
 

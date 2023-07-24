@@ -48,6 +48,7 @@ const loginUser = async (req, res) => {
             });
 
             res.redirect('/users/dashboard');
+            // window.location.replace('/dashboard.ejs');
         }
         else {
             res.status(401).json({
@@ -70,7 +71,7 @@ const createToken = (userId) => {
 
 const getDashboardPage = (req, res) => {
     res.render('dashboard', {
-        link: "dashboard",
+        link: '/dashboard',
     });
 };
 
