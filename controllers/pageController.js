@@ -22,7 +22,14 @@ const getLoginPage = (req, res) => {
     });
 };
 
+const getLogout = (req, res) => {
+    res.cookie("jwt", "", { // logout yaptıgımızda cookielere sakladıgımız tokenımızın ömrünü 1 milisaniye yapıyoruz bu sayede gerçekleşiyor.
+        maxAge: 1,
+    });
+    res.redirect("/");
+};
 
 
 
-export { getIndexPage, getAboutPage, getRegisterPage, getLoginPage}; // obje şeklinde export ettik
+
+export { getIndexPage, getAboutPage, getRegisterPage, getLoginPage, getLogout}; // obje şeklinde export ettik

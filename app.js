@@ -31,6 +31,7 @@ app.use("/", pageRoute); // "/" yani kök adresimize gelen bir isteği pageRoute
 app.use('/photos', photoRoute); // /photos a bir istek geldiğinde photoRoute'a yönlendirdik
 app.use('/users', userRoute);
 
+
 app.listen(port, () => {
     console.log("Application running on port: 3000");
 });

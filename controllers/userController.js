@@ -6,10 +6,7 @@ import jwt from 'jsonwebtoken';
 const createUser = async (req, res) => { 
   try {
       const user = await User.create(req.body);
-      res.status(201).json({ 
-          succeded: true,
-          user,
-      });
+      res.redirect('/login');
   } catch (error) {
         res.status(500).json({
             succeded: false,
@@ -38,7 +35,6 @@ const loginUser = async (req, res) => {
                 error: "There is no such user"
             });
         }
-
         if(same) {
 
             const token = createToken(user._id);
@@ -48,8 +44,9 @@ const loginUser = async (req, res) => {
             });
 
             res.redirect('/users/dashboard');
-            // window.location.replace('/dashboard.ejs');
+            
         }
+        
         else {
             res.status(401).json({
                 succeded: false,
@@ -71,7 +68,7 @@ const createToken = (userId) => {
 
 const getDashboardPage = (req, res) => {
     res.render('dashboard', {
-        link: '/dashboard',
+        link: 'dashboard',
     });
 };
 
