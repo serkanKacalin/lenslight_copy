@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import validator from "validator";
 
 const { Schema } = mongoose;
 
@@ -7,17 +8,20 @@ const userSchema = new Schema(
   {
     username: {
         type: String,
-        required: true,
-        unique: true
+        required: [true, "Username area is required"],
+        lowercase: true,
+        validate: [validator.isAlphanumeric, "Only Alphanumeric characters"], // yalnızca rakamlar ve harflerden oluşsun  kontrolü.
     },
     email: {
         type: String,
-        required: true,
-        unique: true 
+        required: [true, "Email area is required"], // bu köşeli parantez yapısı şöyle çalışıyor : required : true fakat olmazsa bu mesajı döndür.
+        unique: true,
+        validate: [validator.isEmail, "Valid email is required"], // mailin geçerli olup olmadığını kontrol ediyoruz. 
     },
     password: {
         type: String,
-        required: true
+        required: [true, "Password area is required"],
+        minLength: [4, "At least 4 characters"],
     },
   },
   {
