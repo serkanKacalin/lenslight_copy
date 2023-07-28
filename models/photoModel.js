@@ -16,6 +16,11 @@ const photoSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    
 });
 
 const Photo = mongoose.model("Photo", photoSchema); // photoSchema'dan "Photo" adlı bir model ürettik.

@@ -1,6 +1,7 @@
 import User from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import Photo from '../models/photoModel.js';
 
 
 const createUser = async (req, res) => { 
@@ -24,8 +25,6 @@ const createUser = async (req, res) => {
             }); //hata objesini yakaladık.
 
         }
-
-        console.log("Error2", errors2);
 
         res.status(400).json(errors2);
   }
@@ -82,9 +81,11 @@ const createToken = (userId) => {
     return jwt.sign( {userId}, process.env.JWT_SECRET, { expiresIn: '1d'});
 };
 
-const getDashboardPage = (req, res) => {
+const getDashboardPage = async(req, res) => { // async olmayan bir fonksiyonda await kullanılmaz hata verir.
+    const photos = await Photo.find({user: res.locals.user._id}) // id'si giriş yapan kullanıcıınn idsine eşit olan kişinin fotoğraflarını getir dedik.
     res.render('dashboard', {
         link: 'dashboard',
+        photos,
     });
 };
 
