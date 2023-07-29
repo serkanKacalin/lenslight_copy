@@ -6,9 +6,17 @@ import pageRoute from "./routes/pageRoute.js";
 import photoRoute from "./routes/photoRoute.js";
 import userRoute from "./routes/userRoute.js";
 import { checkUser } from "./middlewares/authMiddleware.js";
+import fileUpload from "express-fileupload";
+import { v2 as cloudinary} from 'cloudinary';
 
 
 dotenv.config();
+cloudinary.config({
+    cloud_name : process.env.CLOUD_NAME,
+    api_key : process.env.CLOUD_API_KEY,
+    api_secret : process.env.CLOUD_API_SECRET,
+
+})
 
 // connection to the DB
 conn();
@@ -24,6 +32,7 @@ app.use(express.static('public'));
 app.use(express.json()); // bu satır gönderdiğimiz json formatındaki verileri okumak için 
 app.use(express.urlencoded({ extended : true}));
 app.use(cookieParser());
+app.use(fileUpload({useTempFiles: true}));
 
 // routes
 app.use('*', checkUser); // tüm get metodlarında (* ın anlamı bu) checkuser ı çalıştıracağız.
