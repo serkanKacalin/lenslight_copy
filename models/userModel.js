@@ -23,6 +23,18 @@ const userSchema = new Schema(
         required: [true, "Password area is required"],
         minLength: [4, "At least 4 characters"],
     },
+    followers: [
+      {
+        type:Schema.Types.ObjectId,
+        ref: "Users"
+      } 
+    ],
+    followings: [
+      {
+        type:Schema.Types.ObjectId,
+        ref: "Users"
+      }
+    ],
   },
   {
     timestamps: true, // mongoose veri tabanında bizim adımıza created at ve updated at adında iki alan ekler.

@@ -82,7 +82,11 @@ const createToken = (userId) => {
 };
 
 const getDashboardPage = async(req, res) => { // async olmayan bir fonksiyonda await kullanılmaz hata verir.
-    const photos = await Photo.find({user: res.locals.user._id}) // id'si giriş yapan kullanıcıınn idsine eşit olan kişinin fotoğraflarını getir dedik.
+    const photos = await Photo.find({user: res.locals.user._id}); // id'si giriş yapan kullanıcıınn idsine eşit olan kişinin fotoğraflarını getir dedik.
+    const users = await User.findById({ _id: res.locals.user._id}).populate([
+        "followings",
+        "followers",
+    ]);
     res.render('dashboard', {
         link: 'dashboard',
         photos,
@@ -107,8 +111,8 @@ const getAllUsers = async (req, res) => {
 
 const getAUser = async (req, res) => {
     try {
-        const users = await User.findById({_id : req.params.id});
-        const photos = await Photo.find({user: res.locals.user._id});
+        const users = await User.findById({ _id : req.params.id});
+        const photos = await Photo.find({ user: users._id});
         res.status(200).render("user", {
             users,
             photos,
@@ -122,5 +126,67 @@ const getAUser = async (req, res) => {
     }
 }
 
-export { createUser, loginUser, getDashboardPage, getAllUsers, getAUser};
+const follow = async (req, res) => {
+    try {
+        let user = await User.findByIdAndUpdate(
+            {_id: req.params.id},
+            {
+                $push: {followers: res.locals.user._id} // usermodelde olusturdugumuz followers arrayine takip eden elemanı ekledik
+            },
+            {new: true},
+            )
+
+            user = await user.findByIdAndUpdate(
+                {_id: res.locals.user._id},
+                {
+                    $push: {followings: req.params.id} // aynı şekilde followings arrayine de takip edileni ekledik.
+                },
+                {new: true},
+            );
+            res.status(200).json({
+                succeded:true,
+                user,
+            });
+        
+    } catch (error) {
+        res.status(500).json({
+            succeded: false,
+            error,
+        });
+    }
+}
+
+const unfollow = async (req, res) => {
+    try {
+        let user = await User.findByIdAndUpdate(
+            {_id: req.params.id},
+            {
+                $pull: {followers: res.locals.user._id}  // unfollow fonksiyonu da followla neredeyse aynı sadece 
+                // push yerine pull eyleminde bulunuyoruz yani followers dizisine eklemek yerine çekiyoruz.
+            },
+            {new: true},
+            )
+
+            user = await user.findByIdAndUpdate(
+                {_id: res.locals.user._id},
+                {
+                    $pull: {followings: req.params.id} 
+                },
+                {new: true},
+            );
+            res.status(200).json({
+                succeded:true,
+                user,
+            });
+        
+    } catch (error) {
+        res.status(500).json({
+            succeded: false,
+            error,
+        });
+    }
+}
+
+
+export { createUser, loginUser, getDashboardPage, getAllUsers, getAUser, follow, unfollow};
 

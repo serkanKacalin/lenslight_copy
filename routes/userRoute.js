@@ -15,6 +15,12 @@ router.route('/:id').get(authMiddleware.authenticateToken, userController.getAUs
 // sitede giriş yapmadan fotoğraflar görünebilsin fakat fotoğrafları yükleyen kullanıcıları görmek için giriş kontrolü yapılsın dedik
 // 13. ve 14. satırdaki route işlemlerinde
 
+router.
+  route("/:id/follow")
+  .put(authMiddleware.authenticateToken, userController.follow);
+router
+  .route("/:id/unfollow")
+  .put(authMiddleware.authenticateToken, userController.unfollow);
 
 // authMiddleware.authenticateToken kısmı ile tokeni kontrol ediyor. giriş yaptık diyelim eğer token yoksa ve sayfayı yenilersek bizi yine
 // dashboard sayfasına atmaması gerekir bu durumda bizi logine yönlendirir.
