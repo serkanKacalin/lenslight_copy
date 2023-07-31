@@ -7,7 +7,14 @@ const router = express.Router();
 
 router.route('/register').post(userController.createUser);
 router.route('/login').post(userController.loginUser);
-router.route('/dashboard').get(authMiddleware.authenticateToken, userController.getDashboardPage);
+router.route('/dashboard')
+  .get(authMiddleware.authenticateToken, userController.getDashboardPage);
+
+router.route('/').get(authMiddleware.authenticateToken, userController.getAllUsers); // çoğul kullanıcı sayfası için
+router.route('/:id').get(authMiddleware.authenticateToken, userController.getAUser); // tekil kullanıcı sayfası için
+// sitede giriş yapmadan fotoğraflar görünebilsin fakat fotoğrafları yükleyen kullanıcıları görmek için giriş kontrolü yapılsın dedik
+// 13. ve 14. satırdaki route işlemlerinde
+
 
 // authMiddleware.authenticateToken kısmı ile tokeni kontrol ediyor. giriş yaptık diyelim eğer token yoksa ve sayfayı yenilersek bizi yine
 // dashboard sayfasına atmaması gerekir bu durumda bizi logine yönlendirir.

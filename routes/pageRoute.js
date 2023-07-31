@@ -17,4 +17,5 @@ router.route('/logout').get(pageController.getLogout);
 
 
 
+
 export default router;

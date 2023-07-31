@@ -36,8 +36,11 @@ const createPhoto = async (req, res) => {
 
 const getAllPhotos = async (req, res) => {
     try {
-        const photos = await Photo.find({}); // varolan tüm fotoğrafları getirmek için boş obje yerleştirdik.
+        const photos = res.locals.user ? await Photo.find({user: {$ne : res.locals.user._id}})
+        : await Photo.find();
+        // varolan tüm fotoğrafları getirmek için boş obje yerleştirdik.
         res.status(200).render("Photos", { // kıvrık parantezler ile belirtilen kısım configuration objesidir.
+            // 39.satırda find içine yazdığımız şart ile sergilenen fotolar arasında lokaldeki kullanıcının yüklediğini göstermedik.
             photos,
             link: "photos"
         });
@@ -59,7 +62,8 @@ photo adında bir nesne oluşturduğumuzda bunun cevabını beklemeden alttaki c
 
 const getAPhoto = async (req, res) => {
     try {
-        const photo = await Photo.findById({_id : req.params.id}).populate("user"); 
+        const photo = await Photo.findById({_id : req.params.id}).populate("user"); // populate: photo ile user arasındaki bağlanıyı kullanmaya yarıyor.
+        // yani user ı populate ettiğimizde photo objesi de user özelliklerini kullanabiliyor örnekteki gibi id
         res.status(200).render("photo", {
             photo,
             link: "photos"

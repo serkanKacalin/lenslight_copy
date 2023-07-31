@@ -29,7 +29,13 @@ const getLogout = (req, res) => {
     res.redirect("/");
 };
 
+// const getUsersPage = (req, res) => {
+//     res.render('users', {
+//         link: "users",
+//     });
+// };
 
 
 
-export { getIndexPage, getAboutPage, getRegisterPage, getLoginPage, getLogout}; // obje şeklinde export ettik
+
+export { getIndexPage, getAboutPage, getRegisterPage, getLoginPage, getLogout, }; // obje şeklinde export ettik
