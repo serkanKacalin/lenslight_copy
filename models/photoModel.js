@@ -24,7 +24,9 @@ const photoSchema = new Schema({
         type: String,
         required: true,
     },
-    
+    image_id: { // silme işlemi gerçekleştiğinde veri tabanına müdahale edebilmek için oluşturduk.
+        type: String,
+    },
 });
 
 const Photo = mongoose.model("Photo", photoSchema); // photoSchema'dan "Photo" adlı bir model ürettik.

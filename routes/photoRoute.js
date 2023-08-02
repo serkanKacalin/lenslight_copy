@@ -10,6 +10,7 @@ router
 // router.route("/").get(photoController.getAllPhotos); bu şekilde de yazılabilir fakat üst satırdaki gibi zincir şeklinde de olabilir
 
 router.route("/:id").get(photoController.getAPhoto);
+router.route("/:id").delete(photoController.deletePhoto);
 
 // route('/' olmasının sebebi şu eğer ('/test') olsaydı /photos/test kısmına yönlendirirdi. yani ekstra bir sekmeye yönlendiriyo)
 // get yerine post isteğinde bulunuyoruz artık.

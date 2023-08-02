@@ -37,6 +37,22 @@
                </div>
              </div>
              <!-- end customers  -->
+
+            <!--Follow/unfollow buttons-->
+     <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text_align_center">
+            <% if(!inFollowers) { %>
+            <a href="/users/<%= user._id %>/follow?_method=PUT" style="margin:20px auto;" class="read_more">FOLLOW</a>
+              <% } else { %>
+            <a href="/users/<%= user._id %>/unfollow?_method=PUT" style="margin:20px auto;" class="read_more">UNFOLLOW</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+     </div>
+     <!--End Follow/unfollow buttons-->
              <!-- Gallery -->
              <div class="tz-gallery">
               <div class="row">
